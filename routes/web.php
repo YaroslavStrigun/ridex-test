@@ -24,9 +24,7 @@ Route::match(['get', 'post'], 'register', function () {
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::post(Telegram::getAccessToken(), function () {
-    Telegram::commandsHandler(true);
-});
+Route::post('/656854613:AAHKcubgp0-B-y2H8tPkCobn31cUcxn18LY', 'TelegramController@webhook');
 
 Route::middleware(['auth'])->prefix('admin')->namespace('Backend')->name('admin.')->group(function (){
     Route::get('/', 'DashboardController@index')->name('index');
