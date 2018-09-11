@@ -26,12 +26,21 @@ class TodayCommand extends Command
     {
         $this->replyWithChatAction(['action' => Actions::TYPING]);
 
+        $day_number = DateHelper::formatDate(null, 'w');
+
         $lessons = Schedule::today();
 
-        $response = DateHelper::MAP_WEEK_DAYS_NAME[DateHelper::formatDate(null, 'w')] .":\r\n";
+        if ($day_number == 6 || $day_number == 0 || $lessons->isEmpty()) {
+            $response = 'Сегодня пар нет';
+        }
+        else {
 
-        foreach ($lessons as $lesson) {
-            $response .= sprintf('%s (%s - %s)' . PHP_EOL, $lesson->lesson, $lesson->start, $lesson->end);
+            $response = DateHelper::MAP_WEEK_DAYS_NAME[DateHelper::formatDate(null, 'w')] . ":\r\n";
+
+            foreach ($lessons as $lesson) {
+                $response .= sprintf('%s (%s - %s)' . PHP_EOL, $lesson->lesson, $lesson->start, $lesson->end);
+            }
+
         }
 
         $this->replyWithMessage(['text' => $response]);
