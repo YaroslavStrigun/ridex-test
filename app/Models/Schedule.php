@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Helpers\DateHelper;
 use Illuminate\Database\Eloquent\Model;
 
 class Schedule extends Model
@@ -10,14 +11,13 @@ class Schedule extends Model
 
     public $timestamps = false;
 
-    const MAP_WEEK_DAYS_NAME = [
-        0 => 'Воскресение',
-        1 => 'Понедельник',
-        2 => 'Вторник',
-        3 => 'Среда',
-        4 => 'Четверг',
-        5 => 'Пятница',
-        6 => 'Суббота'
-    ];
+    public static function today()
+    {
+       return self::where('week', DateHelper::weekNumber())
+            ->where('day', DateHelper::formatDate(null, 'w'))
+            ->orderBy('start')
+            ->get();
+
+    }
 
 }
