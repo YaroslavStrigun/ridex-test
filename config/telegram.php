@@ -118,6 +118,8 @@ return [
     'commands'                     => [
         App\Http\Commands\TodayCommand::class,
         App\Http\Commands\TomorrowCommand::class,
+        App\Http\Commands\WeekCommand::class,
+        App\Http\Commands\NextWeekCommand::class,
         App\Http\Commands\HelpCommand::class,
     ],
 

@@ -44,4 +44,13 @@ class Schedule extends Model
             ->get();
     }
 
+    public static function byWeek($week = null)
+    {
+        $week = is_null($week) ?? DateHelper::weekNumber();
+
+        return self::where('week', $week)
+            ->orderBy('day')
+            ->get();
+    }
+
 }

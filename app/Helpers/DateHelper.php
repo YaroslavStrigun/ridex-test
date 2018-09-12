@@ -40,4 +40,11 @@ abstract class DateHelper
 
     }
 
+    static public function nextWeekNumber()
+    {
+        $current_week = self::weekNumber();
+
+        return $current_week == 1 ? 2 : 1;
+    }
+
 }
