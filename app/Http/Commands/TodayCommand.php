@@ -38,7 +38,7 @@ class TodayCommand extends Command
             $response = DateHelper::MAP_WEEK_DAYS_NAME[DateHelper::formatDate(null, 'w')] . ":\r\n";
 
             foreach ($lessons as $lesson) {
-                $response .= sprintf('%s (%s - %s)' . PHP_EOL, $lesson->lesson, $lesson->start, $lesson->end);
+                $response .= sprintf('%s (%s - %s)' . PHP_EOL, '<i>' . $lesson->lesson . '</i>', $lesson->start, $lesson->end);
             }
 
         }

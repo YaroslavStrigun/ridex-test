@@ -15,7 +15,8 @@ class TelegramController extends Controller
         if (mb_strtolower($updates['message']['text']) == "лох") {
             Telegram::sendMessage([
                 'chat_id' => $updates['message']['chat']['id'],
-                'text' => 'Сам ти лох'
+                'text' => '<b>Сам ти лох</b>',
+                'parse_mode' => 'html'
             ]);
         }
 

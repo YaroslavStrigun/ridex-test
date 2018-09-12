@@ -36,17 +36,17 @@ class WeekCommand extends Command
 
         $lessons = Schedule::byWeek()->groupBy('day');
 
-        $response = "$this->week_number неделя" . ":\r\n";
+        $response = "<b>$this->week_number неделя</b>" . ":\r\n";
         $response .= "-----------\n";
         foreach ($lessons as $day_number => $day_lessons) {
-            $response .= DateHelper::MAP_WEEK_DAYS_NAME[$day_number] . ":\r\n";
+            $response .= "<b>" . DateHelper::MAP_WEEK_DAYS_NAME[$day_number] . "</b>" . ":\r\n";
             foreach ($day_lessons->sortBy('start') as $lesson) {
-                $response .= sprintf('%s (%s - %s)' . PHP_EOL, $lesson->lesson, $lesson->start, $lesson->end);
+                $response .= sprintf('%s (%s - %s)' . PHP_EOL, '<i>' . $lesson->lesson . '</i>', $lesson->start, $lesson->end);
             }
             $response .= "-----------\n";
 
         }
 
-        $this->replyWithMessage(['text' => $response]);
+        $this->replyWithMessage(['text' => $response, 'parse_mode' => 'HTML']);
     }
 }
