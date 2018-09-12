@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Commands;
+
 use App\Helpers\DateHelper;
 use App\Models\Schedule;
 use Carbon\Carbon;
@@ -33,10 +34,13 @@ class TomorrowCommand extends Command
 
         $lessons = Schedule::tomorrow();
 
-        if ($day_number == 6 || $day_number == 5 || $lessons->isEmpty()) {
+        if ($day_number == 6 || $day_number == 5) {
             $response = 'Завтра пар нет';
-        }
-        else {
+            $trigger = 'nextweek';
+        } elseif ($lessons->isEmpty()) {
+            $response = 'Завтра пар нет';
+            $trigger = 'week';
+        } else {
 
             $response = '<b>' . DateHelper::MAP_WEEK_DAYS_NAME[$day_number] . '</b>' . ":\r\n";
 
@@ -47,5 +51,7 @@ class TomorrowCommand extends Command
         }
 
         $this->replyWithMessage(['text' => $response, 'parse_mode' => 'HTML']);
+        if (isset($trigger))
+            $this->triggerCommand($trigger);
     }
 }

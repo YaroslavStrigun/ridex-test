@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Commands;
+
 use App\Helpers\DateHelper;
 use App\Models\Schedule;
 use Telegram\Bot\Actions;
@@ -30,10 +31,19 @@ class TodayCommand extends Command
 
         $lessons = Schedule::today();
 
-        if ($day_number == 6 || $day_number == 0 || $lessons->isEmpty()) {
+        if ($day_number == 6) {
             $response = 'Сегодня пар нет';
-        }
-        else {
+            $trigger = 'nextweek';
+        } elseif ($day_number == 0) {
+            $response = 'Сегодня пар нет';
+            $trigger = 'tomorrow';
+        } elseif ($lessons->isEmpty()) {
+            $response = 'Сегодня пар нет';
+            if (Schedule::tomorrow()->isNotEmpty())
+                $trigger = 'tomorrow';
+            else
+                $trigger = 'week';
+        } else {
 
             $response = '<b>' . DateHelper::MAP_WEEK_DAYS_NAME[DateHelper::formatDate(null, 'w')] . '</b>' . ":\r\n";
 
@@ -44,5 +54,7 @@ class TodayCommand extends Command
         }
 
         $this->replyWithMessage(['text' => $response, 'parse_mode' => 'HTML']);
+        if (isset($trigger))
+            $this->triggerCommand($trigger);
     }
 }
