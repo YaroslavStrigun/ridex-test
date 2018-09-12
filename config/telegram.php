@@ -117,6 +117,7 @@ return [
     */
     'commands'
     => [
+        App\Http\Commands\StartCommand::class,
         App\Http\Commands\HelpCommand::class,
         App\Http\Commands\TodayCommand::class,
         App\Http\Commands\LeftCommand::class,
