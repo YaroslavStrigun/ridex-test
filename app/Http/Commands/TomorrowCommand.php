@@ -19,7 +19,7 @@ class TomorrowCommand extends Command
     /**
      * @var string Command Description
      */
-    protected $description = 'Рассписание пар на завтра.';
+    protected $description = 'Рассписание пар на завтра' . "\xF0\x9F\x93\x85";
 
     /**
      * {@inheritdoc}

@@ -19,7 +19,7 @@ class LeftCommand extends Command
     /**
      * @var string Command Description
      */
-    protected $description = 'Показывает время до конца пары';
+    protected $description = 'Показывает время до конца пары' . "\xF0\x9F\x98\xA9";
 
     /**
      * {@inheritdoc}

@@ -18,7 +18,7 @@ class TodayCommand extends Command
     /**
      * @var string Command Description
      */
-    protected $description = 'Рассписание пар на сегодня.';
+    protected $description = 'Рассписание пар на сегодня' . "\xF0\x9F\x95\x90";
 
     /**
      * {@inheritdoc}

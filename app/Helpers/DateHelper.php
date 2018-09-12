@@ -9,13 +9,13 @@ abstract class DateHelper
 {
     const START_DATE = '01-09-2018';
     const MAP_WEEK_DAYS_NAME = [
-        0 => 'Воскресение',
-        1 => 'Понедельник',
-        2 => 'Вторник',
-        3 => 'Среда',
-        4 => 'Четверг',
-        5 => 'Пятница',
-        6 => 'Суббота'
+        0 => "Воскресение",
+        1 => "Понедельник \xF0\x9F\x98\xAD",
+        2 => "Вторник \xF0\x9F\x98\xB0",
+        3 => "Среда \xF0\x9F\x98\xA9",
+        4 => "Четверг \xF0\x9F\x8D\xBA",
+        5 => "Пятница \xF0\x9F\x8D\xBB",
+        6 => "Суббота"
     ];
 
     static public function formatDate($date = null, $format = 'd-m-Y')
