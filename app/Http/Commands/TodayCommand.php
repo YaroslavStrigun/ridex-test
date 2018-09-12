@@ -35,7 +35,7 @@ class TodayCommand extends Command
         }
         else {
 
-            $response = DateHelper::MAP_WEEK_DAYS_NAME[DateHelper::formatDate(null, 'w')] . ":\r\n";
+            $response = '<b>' . DateHelper::MAP_WEEK_DAYS_NAME[DateHelper::formatDate(null, 'w')] . '</b>' . ":\r\n";
 
             foreach ($lessons as $lesson) {
                 $response .= sprintf('%s (%s - %s)' . PHP_EOL, '<i>' . $lesson->lesson . '</i>', $lesson->start, $lesson->end);
@@ -43,6 +43,6 @@ class TodayCommand extends Command
 
         }
 
-        $this->replyWithMessage(['text' => $response]);
+        $this->replyWithMessage(['text' => $response, 'parse_mode' => 'HTML']);
     }
 }
