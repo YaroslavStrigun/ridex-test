@@ -37,11 +37,14 @@ class WeekCommand extends Command
         $lessons = Schedule::byWeek()->groupBy('day');
 
         $response = "$this->week_number неделя" . ":\r\n";
+        $response .= "-----------\n";
         foreach ($lessons as $day_number => $day_lessons) {
             $response .= DateHelper::MAP_WEEK_DAYS_NAME[$day_number] . ":\r\n";
             foreach ($day_lessons->sortBy('start') as $lesson) {
                 $response .= sprintf('%s (%s - %s)' . PHP_EOL, $lesson->lesson, $lesson->start, $lesson->end);
             }
+            $response .= "-----------\n";
+
         }
 
         $this->replyWithMessage(['text' => $response]);
