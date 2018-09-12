@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Schedule extends Model
 {
+    const SCHEDULE_WORDS = ['розклад', 'рассписание'];
+
     protected $guarded = [];
 
     public $timestamps = false;

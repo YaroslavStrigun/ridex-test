@@ -120,6 +120,7 @@ return [
         App\Http\Commands\HelpCommand::class,
         App\Http\Commands\TodayCommand::class,
         App\Http\Commands\LeftCommand::class,
+        App\Http\Commands\WhoCommand::class,
         App\Http\Commands\TomorrowCommand::class,
         App\Http\Commands\WeekCommand::class,
         App\Http\Commands\NextWeekCommand::class,
