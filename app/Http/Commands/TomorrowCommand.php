@@ -34,7 +34,7 @@ class TomorrowCommand extends Command
 
         $lessons = Schedule::tomorrow();
 
-        if ($day_number == 6 || $day_number == 5) {
+        if ($day_number == 6 || $day_number == 0) {
             $response = 'Завтра пар нет';
             $trigger = 'nextweek';
         } elseif ($lessons->isEmpty()) {
