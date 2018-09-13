@@ -25,19 +25,12 @@ Route::match(['get', 'post'], 'register', function () {
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/test', function () {
-   $lessons = \App\Models\Schedule::byWeek()->groupBy('day');
 
-   $response = "1 неделя" . ":\r\n";
-    foreach ($lessons as $day_number => $day_lessons) {
-        $response .= \App\Helpers\DateHelper::MAP_WEEK_DAYS_NAME[$day_number] . ":\r\n";
-        foreach ($day_lessons->sortBy('start') as $lesson) {
-            $response .= sprintf('%s (%s - %s)' . PHP_EOL, $lesson->lesson, $lesson->start, $lesson->end);
-        }
-    }
-   dd($response);
+  return asset('storage/start.mp3');
+
 });
 
-Route::post('/656854613:AAHKcubgp0-B-y2H8tPkCobn31cUcxn18LY', 'TelegramController@webhook');
+Route::post('/680201016:AAH_Tjy8iSQf1CTR2uK8WImvQwXUpmqM3xI', 'TelegramController@webhook');
 
 Route::middleware(['auth'])->prefix('admin')->namespace('Backend')->name('admin.')->group(function (){
     Route::get('/', 'DashboardController@index')->name('index');

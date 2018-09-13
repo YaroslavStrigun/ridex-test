@@ -8,6 +8,7 @@ use CURLFile;
 use Illuminate\Support\Facades\Storage;
 use Telegram\Bot\Actions;
 use Telegram\Bot\Commands\Command;
+use Telegram\Bot\FileUpload\InputFile;
 
 class StartCommand extends Command
 {
@@ -27,11 +28,14 @@ class StartCommand extends Command
      */
     public function handle()
     {
-        $this->replyWithChatAction(['action' => Actions::TYPING]);
+        $this->replyWithChatAction(['action' => Actions::UPLOAD_AUDIO]);
 
-        $response = 'Привет, я помогу тебе с рассписанием. Смотри ниже что я умею.';
+        $this->replyWithAudio([
+            'audio' => new InputFile(asset('storage/start.mp3')),
+            'title' => 'Привет',
+            'performer' => 'Супер бот'
+            ]);
 
-        $this->replyWithMessage(['text' => $response]);
         $this->triggerCommand('help');
 
     }
