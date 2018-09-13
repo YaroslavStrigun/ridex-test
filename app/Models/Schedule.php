@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Model;
 class Schedule extends Model
 {
     const SCHEDULE_WORDS = ['розклад', 'рассписание'];
+    const BAD_WORDS = ['хуй', 'хуйло', 'пизда', 'пиздец', 'лох', 'шлюха', 'залупа'];
 
     protected $guarded = [];
 

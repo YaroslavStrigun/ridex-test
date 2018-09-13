@@ -29,13 +29,13 @@ class LeftCommand extends Command
         $this->replyWithChatAction(['action' => Actions::TYPING]);
 
         $today_lessons = Schedule::today();
-        $now = Carbon::now();
-        $lesson  = $today_lessons->where('start' , '<', $now->format('H:i:s'))->where('end', '>', $now->format('H:i:s') )->first();
+        $now = Carbon::now()->timezone("Europe/Kiev")->format('H:i:s');
+        $lesson  = $today_lessons->where('start' , '<', $now)->where('end', '>', $now)->first();
 
         if (is_null($lesson))
             $response = 'Что-то не могу подсчитать. Сейчас точно пара?';
         else
-            $response = "До конца пары осталось: " . '<b>' . ($now)->diff(new Carbon($lesson->end))->format('%I мин %S сек') . '</b>';
+            $response = "До конца пары осталось: " . '<b>' . date('i мин s сек', strtotime($lesson->end) - strtotime($now)) . '</b>';
 
         $this->replyWithMessage(['text' => $response, 'parse_mode' => 'HTML']);
 
