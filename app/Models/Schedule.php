@@ -8,8 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Schedule extends Model
 {
-    const SCHEDULE_WORDS = ['розклад', 'рассписание'];
-    const BAD_WORDS = ['хуй', 'хуйло', 'пизда', 'пиздец', 'лох', 'шлюха', 'залупа'];
+    const SCHEDULE_WORDS = ['розклад', 'расписание'];
 
     protected $guarded = [];
 
@@ -25,35 +24,47 @@ class Schedule extends Model
         return DateHelper::formatDate($value, 'H:i');
     }
 
-    public static function today()
+    public static function getTodayLessons()
     {
-        return self::byDay(null);
+        return self::getLessonsByDay(null);
 
     }
 
-    public static function tomorrow()
+    public static function getTomorrowLessons()
     {
-        $tomorrow = Carbon::tomorrow();
+        $tomorrow = Carbon::tomorrow()->timezone("Europe/Kiev");
 
-        return self::byDay($tomorrow);
+        return self::getLessonsByDay($tomorrow);
 
     }
 
-    public static function byDay($day = null)
+    public static function getLessonsByDay($day = null)
     {
-        return self::where('week', $week ?? DateHelper::weekNumber($day))
+        return self::where('week', $week ?? DateHelper::getWeekNumber($day))
             ->where('day', DateHelper::formatDate($day, 'w'))
             ->orderBy('start')
             ->get();
     }
 
-    public static function byWeek($week = null)
+    public static function getLessonsByWeek($week = null)
     {
-        $week = is_null($week) ?? DateHelper::weekNumber();
+        $week = is_null($week) ?? DateHelper::getWeekNumber();
 
         return self::where('week', $week)
             ->orderBy('day')
             ->get();
+    }
+
+    public static function getFormattedLessons($lessons = [], $day_number)
+    {
+        $response = '<b>' . DateHelper::MAP_WEEK_DAYS_NAME[$day_number] . '</b>' . ":\r\n";
+
+        foreach ($lessons->sortBy('start') as $lesson) {
+            $response .= sprintf('%s (%s - %s)' . PHP_EOL, '<i>' . $lesson->lesson . '</i>', $lesson->start, $lesson->end);
+        }
+
+        return $response;
+
     }
 
 }

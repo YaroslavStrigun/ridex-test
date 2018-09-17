@@ -2,10 +2,6 @@
 
 namespace App\Http\Commands;
 
-use App\Models\Schedule;
-use Carbon\Carbon;
-use CURLFile;
-use Illuminate\Support\Facades\Storage;
 use Telegram\Bot\Actions;
 use Telegram\Bot\Commands\Command;
 use Telegram\Bot\FileUpload\InputFile;

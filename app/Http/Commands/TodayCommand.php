@@ -29,7 +29,7 @@ class TodayCommand extends Command
 
         $day_number = DateHelper::formatDate(null, 'w');
 
-        $lessons = Schedule::today();
+        $lessons = Schedule::getTodayLessons();
 
         if ($day_number == 6) {
             $response = 'Сегодня пар нет';
@@ -44,13 +44,7 @@ class TodayCommand extends Command
             else
                 $trigger = 'week';
         } else {
-
-            $response = '<b>' . DateHelper::MAP_WEEK_DAYS_NAME[DateHelper::formatDate(null, 'w')] . '</b>' . ":\r\n";
-
-            foreach ($lessons as $lesson) {
-                $response .= sprintf('%s (%s - %s)' . PHP_EOL, '<i>' . $lesson->lesson . '</i>', $lesson->start, $lesson->end);
-            }
-
+            $response = Schedule::getFormattedLessons($lessons, $day_number);
         }
 
         $this->replyWithMessage(['text' => $response, 'parse_mode' => 'HTML']);
@@ -58,3 +52,5 @@ class TodayCommand extends Command
             $this->triggerCommand($trigger);
     }
 }
+
+;

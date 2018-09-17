@@ -32,7 +32,7 @@ class TomorrowCommand extends Command
 
         $day_number = DateHelper::formatDate($tomorrow, 'w');
 
-        $lessons = Schedule::tomorrow();
+        $lessons = Schedule::getTomorrowLessons();
 
         if ($day_number == 6 || $day_number == 0) {
             $response = 'Завтра пар нет';
@@ -41,13 +41,7 @@ class TomorrowCommand extends Command
             $response = 'Завтра пар нет';
             $trigger = 'week';
         } else {
-
-            $response = '<b>' . DateHelper::MAP_WEEK_DAYS_NAME[$day_number] . '</b>' . ":\r\n";
-
-            foreach ($lessons as $lesson) {
-                $response .= sprintf('%s (%s - %s)' . PHP_EOL, '<i>' . $lesson->lesson . '</i>', $lesson->start, $lesson->end);
-            }
-
+           $response =  Schedule::getFormattedLessons($lessons, $day_number);
         }
 
         $this->replyWithMessage(['text' => $response, 'parse_mode' => 'HTML']);

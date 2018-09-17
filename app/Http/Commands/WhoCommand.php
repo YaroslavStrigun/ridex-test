@@ -28,7 +28,7 @@ class WhoCommand extends Command
     {
         $this->replyWithChatAction(['action' => Actions::TYPING]);
 
-        $today_lessons = Schedule::today();
+        $today_lessons = Schedule::getTodayLessons();
         $now = Carbon::now()->timezone("Europe/Kiev");
         $lesson  = $today_lessons->where('start' , '<', $now->format('H:i:s'))->where('end', '>', $now->format('H:i:s') )->first();
 

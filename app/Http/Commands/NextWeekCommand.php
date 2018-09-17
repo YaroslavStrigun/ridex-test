@@ -11,7 +11,7 @@ class NextWeekCommand extends WeekCommand
 
     public function __construct()
     {
-        $this->week_number = DateHelper::nextWeekNumber();
+        $this->week_number = DateHelper::getNextWeekNumber();
     }
 
 

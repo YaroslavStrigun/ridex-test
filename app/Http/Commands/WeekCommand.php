@@ -18,7 +18,7 @@ class WeekCommand extends Command
 
     public function __construct()
     {
-        $this->week_number = DateHelper::weekNumber();
+        $this->week_number = DateHelper::getWeekNumber();
     }
 
 
@@ -34,17 +34,14 @@ class WeekCommand extends Command
     {
         $this->replyWithChatAction(['action' => Actions::TYPING]);
 
-        $lessons = Schedule::byWeek()->groupBy('day');
+        $lessons = Schedule::getLessonsByWeek()->groupBy('day');
 
         $response = "<b>$this->week_number неделя</b>" . ":\r\n";
         $response .= "-----------\n";
-        foreach ($lessons as $day_number => $day_lessons) {
-            $response .= "<b>" . DateHelper::MAP_WEEK_DAYS_NAME[$day_number] . "</b>" . ":\r\n";
-            foreach ($day_lessons->sortBy('start') as $lesson) {
-                $response .= sprintf('%s (%s - %s)' . PHP_EOL, '<i>' . $lesson->lesson . '</i>', $lesson->start, $lesson->end);
-            }
-            $response .= "-----------\n";
 
+        foreach ($lessons as $day_number => $day_lessons) {
+            $response .= Schedule::getFormattedLessons($day_lessons, $day_number);
+            $response .= "-----------\n";
         }
 
         $this->replyWithMessage(['text' => $response, 'parse_mode' => 'HTML']);

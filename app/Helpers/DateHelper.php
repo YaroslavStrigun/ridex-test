@@ -20,15 +20,15 @@ abstract class DateHelper
 
     static public function formatDate($date = null, $format = 'd-m-Y')
     {
-        $date = $date ?? Carbon::now();
+        $date = $date ?? Carbon::now()->timezone("Europe/Kiev");
         $format_date =  date($format, strtotime($date));
 
         return $format_date;
     }
 
-    static public function weekNumber($date = null)
+    static public function getWeekNumber($date = null)
     {
-        $date = $date ?? Carbon::now();
+        $date = $date ?? Carbon::now()->timezone("Europe/Kiev");
         $week_number = self::formatDate($date, 'W');
 
         if ($week_number % 2 == 0)
@@ -40,9 +40,9 @@ abstract class DateHelper
 
     }
 
-    static public function nextWeekNumber()
+    static public function getNextWeekNumber()
     {
-        $current_week = self::weekNumber();
+        $current_week = self::getWeekNumber();
 
         return $current_week == 1 ? 2 : 1;
     }

@@ -28,7 +28,7 @@ class LeftCommand extends Command
     {
         $this->replyWithChatAction(['action' => Actions::TYPING]);
 
-        $today_lessons = Schedule::today();
+        $today_lessons = Schedule::getTodayLessons();
         $now = Carbon::now()->timezone("Europe/Kiev")->format('H:i:s');
         $lesson  = $today_lessons->where('start' , '<', $now)->where('end', '>', $now)->first();
 
